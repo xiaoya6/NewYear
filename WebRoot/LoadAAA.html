@@ -71,7 +71,7 @@
 
 //
 				var loader = new THREE.JSONLoader();
-				loader.load('models/aaa/aaa.js', addModel); 
+				loader.load('models/Santa.js', addModel); 
 
 //				var ambientLight = new THREE.AmbientLight(0xcccccc);
 //				scene.add(ambientLight);
@@ -106,8 +106,10 @@
 //					material.color.setHex(0xffaaaa);
 					//var mesh = new THREE.Mesh(geometry, materials);
 					var mesh = new THREE.SkinnedMesh(geometry,new THREE.MeshFaceMaterial( materials));
-					mesh.position.set(0, -30 ,-200);
-					mesh.scale.set(1,1,1);
+					//mesh.position.set(0, -30 ,-200);
+					mesh.position.set(0, 0 ,0);
+
+					mesh.scale.set(100,100,100);
 					
 					
 				//rest = new THREE.Animation(mesh, geometry.animations[0], handler);
