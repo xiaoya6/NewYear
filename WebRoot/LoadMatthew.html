@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<title>three.js webgl - blender -json</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				background: #777;
+				padding: 0;
+				margin: 0;
+				font-weight: bold;
+				overflow: hidden;
+			}
+			canvas {width:100%; height:100%;}
+			
+		</style>
+		
+		<script src="js/three.js"></script>
+
+		<script src="js/Detector.js"></script>
+		<script src="js/stats.min.js"></script>
+		<script src="js/three.min.js"></script>
+		<!--<script src="../build/OrbitControls.js"></script>-->
+		<script src="js/ColladaLoader.js"></script>
+
+	</head>
+
+	<body>
+
+		<div id="container"></div>
+		<div id="info">
+			<!--<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - monster by-->
+			<!--<a href="http://www.3drt.com/downloads.htm" target="_blank" rel="noopener">3drt</a>-->
+		</div>
+	
+		<div>
+			<button onclick="idle.play(),rest.stop()">idle</button>
+			<button onclick="idle.stop(),rest.play()">jump</button>
+
+		</div>
+		
+		<script>
+			var container, stats, clock, mixer;
+			var camera, scene, renderer, objects;
+			var mixer, facesClip, bonesClip;
+			var loader, wormie, idle, rest, run, jump;
+			var light,light1;
+			var mouseX = 0, mouseY = 0;
+			var actions = {};
+			var idle;
+			var controls, light, clock = new THREE.Clock();
+				var width = window.innerWidth, height = window.innerHeight;
+			var handler = THREE.AnimationHandler.CATMULLROM;
+			var stats = document.getElementById("stats");
+
+			init();
+			animate();
+			CreateLight();
+			function init() {			
+
+				scene = new THREE.Scene();
+				camera = new THREE.PerspectiveCamera(65, width/height, 0.1, 1000);
+				renderer = new THREE.WebGLRenderer();
+				renderer.setSize(width, height);
+				renderer.setClearColor(0x00ff00);
+				document.body.appendChild(renderer.domElement);
+
+				camera.position.z = 30;
+
+
+				scene.fog = new THREE.FogExp2(0x000000, 0.035);
+
+//
+				var loader = new THREE.JSONLoader();
+				loader.load('../WebRoot/models/threejsTest/matt.js', addModel); 
+
+//				var ambientLight = new THREE.AmbientLight(0xcccccc);
+//				scene.add(ambientLight);
+//
+//				var pointLight = new THREE.PointLight(0xff4400, 5, 30);
+//				pointLight.position.set(5, 0, 0);
+//				scene.add(pointLight);
+				// events
+				window.addEventListener('resize', onWindowResize, false);
+
+			}
+				
+			function CreateLight(){
+				light = new THREE.AmbientLight(0xffffff,0.5);
+				scene.add(light)
+				light1 = new THREE.PointLight(0xffffff,0.5);
+			//	light1.position.set(0,-2,20)
+				scene.add(light1);			
+			}
+				
+			function addModel(geometry, materials){
+				materials.forEach(function (mat){
+					mat.skinning = true;
+					mat.color.setHex(0xffaaaa);
+					mat.morphTargets = true;
+
+				});
+					
+//					var material = materials[0];
+//					material.morphTargets = true;
+//					material.color.setHex(0xffaaaa);
+					//var mesh = new THREE.Mesh(geometry, materials);
+					var mesh = new THREE.SkinnedMesh(geometry,new THREE.MeshFaceMaterial( materials));
+					mesh.position.set(0, -2, 25);
+					mesh.scale.set(1,1,1);
+					
+					
+				rest = new THREE.Animation(mesh, geometry.animations[0], handler);
+				idle = new THREE.Animation(mesh, geometry.animations[1], handler);
+				//run  = new THREE.Animation(mesh, geometry.animations[2], handler);
+				//jump  = new THREE.Animation(mesh, geometry.animations[3], handler);
+				
+				//rest.play();
+				//idle.play();
+				//run.stop();
+				//jump.stop();
+				//scene.add(mesh);
+				//jump  = new THREE.Animation(mesh,);
+
+					scene.add(mesh);	
+				}
+
+
+			function onWindowResize(event) {
+
+				renderer.setSize(window.innerWidth, window.innerHeight);
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+			}
+
+			//
+
+			function animate() {
+
+				requestAnimationFrame(animate);
+		
+				var delta = clock.getDelta();
+				THREE.AnimationHandler.update(delta);
+				render();
+				
+			}
+
+//
+//			function render() {
+//
+//					var timer = Date.now() * 0.0005;
+//
+//					camera.position.x = Math.cos(timer) * 10;
+//					camera.position.y = 4;
+//					camera.position.z = Math.sin(timer) * 10;
+//
+//				mixer.update(clock.getDelta());
+//
+//				camera.lookAt(scene.position);
+//
+//				renderer.render(scene, camera);
+//
+//			}
+	
+			
+	function render(){
+		//renderer.clear();
+		camera.lookAt(scene.position);
+
+		renderer.render(scene, camera);
+	}
+		</script>
+	</body>
+
+</html>
