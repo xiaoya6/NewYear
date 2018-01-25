@@ -33,8 +33,8 @@
 	
 	
 		<div>
-			<button onclick="idle.play()">idle</button>
-			<button onclick="idle.stop()">jump</button>
+			<button onclick="rest.play()">idle</button>
+			<button onclick="rest.stop()">jump</button>
 
 		</div>
 		
@@ -71,7 +71,7 @@
 
 //
 				var loader = new THREE.JSONLoader();
-				loader.load('models/aaa/aaa.js', addModel); 
+				loader.load('models/aaa/male.js', addModel); 
 
 //				var ambientLight = new THREE.AmbientLight(0xcccccc);
 //				scene.add(ambientLight);
@@ -88,7 +88,7 @@
 				light = new THREE.AmbientLight(0xffffff,0.5);
 				scene.add(light)
 				light1 = new THREE.PointLight(0xffffff,0.5);
-			//	light1.position.set(0,-2,20)
+				light1.position.set(0, -30 ,-190)
 				scene.add(light1);			
 			}
 				
@@ -99,17 +99,18 @@
 					mat.morphTargets = true;
 
 				});
+				
 					
 //					var material = materials[0];
 //					material.morphTargets = true;
 //					material.color.setHex(0xffaaaa);
 					//var mesh = new THREE.Mesh(geometry, materials);
 					var mesh = new THREE.SkinnedMesh(geometry,new THREE.MeshFaceMaterial( materials));
-					mesh.position.set(0, -2, 25);
+					mesh.position.set(0, -30 ,-200);
 					mesh.scale.set(1,1,1);
 					
 					
-				//rest = new THREE.Animation(mesh, geometry.animations[0], handler);
+				rest = new THREE.Animation(mesh, geometry.animations[0], handler);
 				//idle = new THREE.Animation(mesh, geometry.animations[1], handler);
 				//run  = new THREE.Animation(mesh, geometry.animations[2], handler);
 				//jump  = new THREE.Animation(mesh, geometry.animations[3], handler);
