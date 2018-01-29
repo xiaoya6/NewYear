@@ -75,7 +75,7 @@
 //
 				var loader = new THREE.JSONLoader();
 				//loader.load('models/threejsTest/matt.js', addModel); 
-				loader.load('models/test4.json', addModel); 
+				loader.load('models/t1.json', addModel); 
 
 				// events
 				window.addEventListener('resize', onWindowResize, false);
@@ -125,11 +125,11 @@
 					//material.morphTargets = true;
 					//material.color.setHex(0xffaaaa);
 					var mesh = new THREE.Mesh(geometry, materials);
-					//var mesh = new THREE.SkinnedMesh(geometry,new THREE.MeshFaceMaterial( materials));
+					var mesh = new THREE.SkinnedMesh(geometry,new THREE.MeshFaceMaterial( materials));
 					mesh.position.set(0, 0, 0);
 					mesh.scale.set(1,1,1);
-					
-					
+					//var mixer = new THREE.AnimationMixer(mesh);
+				
 					
 				//rest = new THREE.Animation(mesh, geometry.animations[0], handler);
 				//idle = new THREE.Animation(mesh, geometry.animations[1], handler);
@@ -166,21 +166,6 @@
 				render();
 				
 			}
-//			function render() {
-//
-//					var timer = Date.now() * 0.0005;
-//
-//					camera.position.x = Math.cos(timer) * 10;
-//					camera.position.y = 4;
-//					camera.position.z = Math.sin(timer) * 10;
-//
-//				mixer.update(clock.getDelta());
-//
-//				camera.lookAt(scene.position);
-//
-//				renderer.render(scene, camera);
-//
-//			}
 	
 			
 	function render(){
