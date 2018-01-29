@@ -71,7 +71,7 @@
 
 //
 				var loader = new THREE.JSONLoader();
-				loader.load('models/Santa.js', addModel); 
+				loader.load('models/aaa/male001.js', addModel); 
 
 //				var ambientLight = new THREE.AmbientLight(0xcccccc);
 //				scene.add(ambientLight);
@@ -106,13 +106,13 @@
 //					material.color.setHex(0xffaaaa);
 					//var mesh = new THREE.Mesh(geometry, materials);
 					var mesh = new THREE.SkinnedMesh(geometry,new THREE.MeshFaceMaterial( materials));
-					//mesh.position.set(0, -30 ,-200);
-					mesh.position.set(0, 0 ,0);
+					mesh.position.set(0, -30 ,-200);
+					//alert(mesh.position.z);
 
-					mesh.scale.set(100,100,100);
+					mesh.scale.set(1,1,1);
 					
 					
-				//rest = new THREE.Animation(mesh, geometry.animations[0], handler);
+				rest = new THREE.Animation(mesh, geometry.animations[0], handler);
 				//idle = new THREE.Animation(mesh, geometry.animations[1], handler);
 				//run  = new THREE.Animation(mesh, geometry.animations[2], handler);
 				//jump  = new THREE.Animation(mesh, geometry.animations[3], handler);

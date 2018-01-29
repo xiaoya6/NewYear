@@ -54,10 +54,12 @@
 				var width = window.innerWidth, height = window.innerHeight;
 			var handler = THREE.AnimationHandler.CATMULLROM;
 			var stats = document.getElementById("stats");
-
+			//初始化照相机，场景，渲染，加载模型
 			init();
 			animate();
+			//创建灯光
 			CreateLight();
+			
 			function init() {			
 
 				scene = new THREE.Scene();
@@ -68,30 +70,46 @@
 				document.body.appendChild(renderer.domElement);
 
 				camera.position.z = 30;
-
-
-				scene.fog = new THREE.FogExp2(0x000000, 0.035);
+				//scene.fog = new THREE.FogExp2(0x000000, 0.035);
 
 //
 				var loader = new THREE.JSONLoader();
-				loader.load('models/threejsTest/matt.js', addModel); 
+				//loader.load('models/threejsTest/matt.js', addModel); 
+				loader.load('models/test3.json', addModel); 
 
-//				var ambientLight = new THREE.AmbientLight(0xcccccc);
-//				scene.add(ambientLight);
-//
-//				var pointLight = new THREE.PointLight(0xff4400, 5, 30);
-//				pointLight.position.set(5, 0, 0);
-//				scene.add(pointLight);
 				// events
 				window.addEventListener('resize', onWindowResize, false);
 
 			}
 				
 			function CreateLight(){
+				
+//					var ambient = new THREE.AmbientLight( 0x888888 );
+//					scene.add( ambient );
+//
+//					var directionalLight = new THREE.DirectionalLight( 0xdddddd );
+//					directionalLight.position.set( 0, -1, 1 ).normalize();
+//					scene.add( directionalLight );
+
+//					spot1	 = new THREE.SpotLight( 0xffffff, 1 );
+//					spot1.position.set( -100, 200, 100 );
+//					spot1.target.position.set( 0, 0, 0 );
+//
+//					if (sceneInfo.shadows) {
+//
+//					spot1.shadowCameraNear		= 1;
+//					spot1.shadowCameraFar		= 1024;
+//					spot1.castShadow			= true;
+//					spot1.shadowDarkness		= 0.3;
+//					spot1.shadowBias = 0.0001;
+//					spot1.shadowMapWidth = 2048;
+//					spot1.shadowMapHeight = 2048;
+//					}
+//					scene.add( spot1 );
 				light = new THREE.AmbientLight(0xffffff,0.5);
 				scene.add(light)
 				light1 = new THREE.PointLight(0xffffff,0.5);
-			//	light1.position.set(0,-2,20)
+				light1.position.set(0,0,0)
 				scene.add(light1);			
 			}
 				
@@ -103,17 +121,18 @@
 
 				});
 					
-//					var material = materials[0];
-//					material.morphTargets = true;
-//					material.color.setHex(0xffaaaa);
-					//var mesh = new THREE.Mesh(geometry, materials);
+					var material = materials[0];
+					material.morphTargets = true;
+					material.color.setHex(0xffaaaa);
+					var mesh = new THREE.Mesh(geometry, materials);
 					var mesh = new THREE.SkinnedMesh(geometry,new THREE.MeshFaceMaterial( materials));
-					mesh.position.set(0, -2, 25);
-					mesh.scale.set(1,1,1);
+					mesh.position.set(0, 0, 0);
+					mesh.scale.set(5,5,5);
 					
 					
-				rest = new THREE.Animation(mesh, geometry.animations[0], handler);
-				idle = new THREE.Animation(mesh, geometry.animations[1], handler);
+					
+				//rest = new THREE.Animation(mesh, geometry.animations[0], handler);
+				//idle = new THREE.Animation(mesh, geometry.animations[1], handler);
 				//run  = new THREE.Animation(mesh, geometry.animations[2], handler);
 				//jump  = new THREE.Animation(mesh, geometry.animations[3], handler);
 				
@@ -147,8 +166,6 @@
 				render();
 				
 			}
-
-//
 //			function render() {
 //
 //					var timer = Date.now() * 0.0005;
