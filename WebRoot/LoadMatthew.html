@@ -75,7 +75,7 @@
 //
 				var loader = new THREE.JSONLoader();
 				//loader.load('models/threejsTest/matt.js', addModel); 
-				loader.load('models/test3.json', addModel); 
+				loader.load('models/test4.json', addModel); 
 
 				// events
 				window.addEventListener('resize', onWindowResize, false);
@@ -114,20 +114,20 @@
 			}
 				
 			function addModel(geometry, materials){
-				materials.forEach(function (mat){
-					mat.skinning = true;
-					mat.color.setHex(0xffaaaa);
-					mat.morphTargets = true;
-
-				});
+//				materials.forEach(function (mat){
+//					mat.skinning = true;
+//					mat.color.setHex(0xffaaaa);
+//					mat.morphTargets = true;
+//
+//				});
 					
-					var material = materials[0];
-					material.morphTargets = true;
-					material.color.setHex(0xffaaaa);
+					//var material = materials[0];
+					//material.morphTargets = true;
+					//material.color.setHex(0xffaaaa);
 					var mesh = new THREE.Mesh(geometry, materials);
-					var mesh = new THREE.SkinnedMesh(geometry,new THREE.MeshFaceMaterial( materials));
+					//var mesh = new THREE.SkinnedMesh(geometry,new THREE.MeshFaceMaterial( materials));
 					mesh.position.set(0, 0, 0);
-					mesh.scale.set(5,5,5);
+					mesh.scale.set(1,1,1);
 					
 					
 					
