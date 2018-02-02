@@ -39,8 +39,10 @@
 		</div>
 
 		<div>
-			<button onclick="idle.play(),rest.stop()">idle</button>
-			<button onclick="idle.stop(),rest.play()">jump</button>
+			<button onclick="rest.play()">idle</button>
+			<button onclick="rest.stop()">jump</button>
+			<button onclick = "mesh.visible = false" >remove</button>
+			<button onclick="mesh.visible = true">show </button>
 
 		</div>
 
@@ -54,6 +56,7 @@
 			var controls, light, clock = new THREE.Clock();
 			var width = window.innerWidth,
 				height = window.innerHeight;
+			var mesh;
 			var handler = THREE.AnimationHandler.CATMULLROM;
 			var stats = document.getElementById("stats");
 			//初始化照相机，场景，渲染，加载模型
@@ -80,8 +83,8 @@
 				controls.enableZoom = true;
 
 				var loader = new THREE.JSONLoader();
-				loader.load('models/threejsTest/matt.js', addModel);
-				//loader.load('models/t22.js', addModel); 
+				//loader.load('models/threejsTest/matt.js', addModel);
+				loader.load('models/threejsTest/test_2.js', addModel); 
 
 				// events
 				window.addEventListener('resize', onWindowResize, false);
@@ -101,38 +104,31 @@
 					mat.skinning = true;
 					mat.color.setHex(0xffaaaa);
 					//mat.color.setHex(0xffffff);
-					mat.morphTargets = true;
+					//mat.morphTargets = true;
 
 				});
 
 				var material = materials[0];
-				material.morphTargets = true;
+				//material.morphTargets = true;
 				material.color.setHex(0xffaaaa);
-				var mesh = new THREE.Mesh(geometry, materials);
-				var mesh = new THREE.SkinnedMesh(geometry, new THREE.MeshFaceMaterial(materials));
+				 mesh = new THREE.Mesh(geometry, materials);
+				 mesh = new THREE.SkinnedMesh(geometry, new THREE.MeshFaceMaterial(materials));
 				mesh.position.set(0, -1, 0);
 				mesh.scale.set(1, 1, 1);
 
 				rest = new THREE.Animation(mesh, geometry.animations[0], handler);
-				idle = new THREE.Animation(mesh, geometry.animations[1], handler);
+				//idle = new THREE.Animation(mesh, geometry.animations[1], handler);
 				//run  = new THREE.Animation(mesh, geometry.animations[2], handler);
 				//jump  = new THREE.Animation(mesh, geometry.animations[3], handler);
-
-				//rest.play();
-				//idle.play();
-				//run.stop();
-				//jump.stop();
-				//scene.add(mesh);
-				//jump  = new THREE.Animation(mesh,);
 
 				scene.add(mesh);
 			}
 
 			function onWindowResize(event) {
-
 				renderer.setSize(window.innerWidth, window.innerHeight);
 				camera.aspect = window.innerWidth / window.innerHeight;
 				camera.updateProjectionMatrix();
+				mesh.visible = false;
 
 			}
 
@@ -151,7 +147,6 @@
 			function animate() {
 				requestAnimationFrame(animate);
 				controls.update();
-
 				var delta = clock.getDelta();
 				THREE.AnimationHandler.update(delta);
 				render();
